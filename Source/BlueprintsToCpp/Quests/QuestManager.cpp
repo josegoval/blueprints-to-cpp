@@ -28,14 +28,6 @@ int32 AQuestManager::CompleteQuest_Implementation(FName QuestId, bool CompleteWh
 	if (QuestIndex == -1) return QuestIndex;
 
 	FQuestInfo& Quest = QuestList[QuestIndex];
-	if (CompleteWholeQuest)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("------WHOLE"))
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("------STEP"))
-	}
 	Quest.Progress = CompleteWholeQuest ? Quest.ProgressTotal : FMath::Min(Quest.Progress + 1, Quest.ProgressTotal);
 	return QuestIndex;
 }
