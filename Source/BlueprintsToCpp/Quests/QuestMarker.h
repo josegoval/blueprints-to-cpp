@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "QuestManager.h"
 #include "GameFramework/Actor.h"
 #include "QuestMarker.generated.h"
 
@@ -14,11 +15,22 @@ class BLUEPRINTSTOCPP_API AQuestMarker : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AQuestMarker();
+protected:
+	UFUNCTION(BlueprintPure, BlueprintImplementableEvent)
+    AQuestManager* GetQuestManager() const;
 
+	UFUNCTION(BlueprintCallable)
+	void RefreshVisibility() const;
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* RootSceneComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UParticleSystemComponent* ParticleSystemComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName QuestName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 ShowAtProgress;
 };

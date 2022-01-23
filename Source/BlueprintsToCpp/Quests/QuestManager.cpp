@@ -16,6 +16,11 @@ void AQuestManager::BeginPlay()
 	Super::BeginPlay();
 }
 
+FQuestInfo AQuestManager::GetQuest(FName QuestId) const
+{
+	return QuestList[GetQuestIndex(QuestId)];
+}
+
 // Called every frame
 void AQuestManager::Tick(float DeltaTime)
 {
