@@ -25,17 +25,17 @@ void AQuestManager::Tick(float DeltaTime)
 int32 AQuestManager::CompleteQuest_Implementation(FName QuestId, bool CompleteWholeQuest)
 {
 	const int32 QuestIndex = GetQuestIndex(QuestId);
-	UE_LOG(LogTemp, Warning, TEXT("GOING IN %d", QuestIndex))
 	if (QuestIndex == -1) return QuestIndex;
 
-	FQuestInfo Quest = QuestList[QuestIndex];
+	FQuestInfo& Quest = QuestList[QuestIndex];
 	if (CompleteWholeQuest)
 	{
-		Quest.Progress = Quest.ProgressTotal;
+		UE_LOG(LogTemp, Warning, TEXT("------WHOLE"))
 	}
 	else
 	{
-		Quest.Progress = FMath::Min(Quest.Progress + 1, Quest.ProgressTotal);
+		UE_LOG(LogTemp, Warning, TEXT("------STEP"))
 	}
+	Quest.Progress = CompleteWholeQuest ? Quest.ProgressTotal : FMath::Min(Quest.Progress + 1, Quest.ProgressTotal);
 	return QuestIndex;
 }
