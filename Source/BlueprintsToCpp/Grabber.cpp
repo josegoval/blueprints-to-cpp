@@ -53,3 +53,18 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// ...
 }
 
+void UGrabber::Grab()
+{
+	AActor* HitActor;
+	UPrimitiveComponent* HitComponent;
+
+	if (!TraceForPhysicsBodies(HitActor,HitComponent)) return;
+	HitComponent->SetSimulatePhysics(true);
+	GetPhysicsComponent()->GrabComponentAtLocationWithRotation(HitComponent, NAME_None, HitComponent->GetCenterOfMass(), FRotator());
+}
+
+void UGrabber::Release()
+{
+	GetPhysicsComponent()->ReleaseComponent();
+}
+
