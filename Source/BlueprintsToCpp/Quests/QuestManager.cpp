@@ -27,12 +27,12 @@ void AQuestManager::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-int32 AQuestManager::CompleteQuest_Implementation(FName QuestId, bool CompleteWholeQuest)
+void AQuestManager::CompleteQuest_Implementation(FName QuestId, bool CompleteWholeQuest)
 {
 	const int32 QuestIndex = GetQuestIndex(QuestId);
-	if (QuestIndex == -1) return QuestIndex;
+	if (QuestIndex == -1) return;
 
 	FQuestInfo& Quest = QuestList[QuestIndex];
 	Quest.Progress = CompleteWholeQuest ? Quest.ProgressTotal : FMath::Min(Quest.Progress + 1, Quest.ProgressTotal);
-	return QuestIndex;
+	CompletedQuest.Broadcast(QuestIndex);
 }

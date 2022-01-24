@@ -38,7 +38,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	int32 CompleteQuest(FName QuestId, bool CompleteWholeQuest);
+	void CompleteQuest(FName QuestId, bool CompleteWholeQuest);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FQuestInfo> QuestList;

@@ -11,16 +11,22 @@ UCLASS()
 class BLUEPRINTSTOCPP_API AQuestMarker : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AQuestMarker();
 protected:
+	virtual void BeginPlay() override;
+
 	UFUNCTION(BlueprintPure, BlueprintImplementableEvent)
-    AQuestManager* GetQuestManager() const;
+	AQuestManager* GetQuestManager() const;
 
 	UFUNCTION(BlueprintCallable)
 	void RefreshVisibility() const;
+
+private:
+	UFUNCTION()
+	void OnCompleteQuest(int32 Index);
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* RootSceneComponent;
@@ -30,7 +36,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName QuestName;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int32 ShowAtProgress;
 };

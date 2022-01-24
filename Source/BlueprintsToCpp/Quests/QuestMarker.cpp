@@ -17,10 +17,21 @@ AQuestMarker::AQuestMarker()
 	ParticleSystemComponent->SetupAttachment(RootSceneComponent);
 }
 
+void AQuestMarker::BeginPlay()
+{
+	GetQuestManager()->CompletedQuest.AddDynamic(this, &AQuestMarker::OnCompleteQuest);
+	RefreshVisibility();
+}
+
 void AQuestMarker::RefreshVisibility() const
 {
 	const AQuestManager* QuestManager = GetQuestManager();
 	const FQuestInfo& Quest = QuestManager->GetQuest(QuestName);
 	const bool isVisible = Quest.Progress == ShowAtProgress && QuestManager->IsActiveQuest(QuestName);
 	ParticleSystemComponent->SetVisibility(isVisible);
+}
+
+void AQuestMarker::OnCompleteQuest(int32 Index)
+{
+	RefreshVisibility();
 }
